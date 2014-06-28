@@ -1,0 +1,1 @@
+javascript: void((function() {var element = document.createElement('script');element.id = 'wkc-js';element.charset = 'utf-8',element.setAttribute('src', 'https://raw.githubusercontent.com/wangkechun/showHnustDepInChrome/master/main.js');document.body.appendChild(element);})())
