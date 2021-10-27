@@ -1,3 +1,9 @@
+/**
+ * Implement the IE's selectNodes function
+ * @param {Document} xmlDoc the AJAX responseXML data
+ * @param {string} elementPath xpath data
+ * @returns {Node[]} a list of all the data that match the xpath
+ */
 function SelectNodes(xmlDoc, elementPath)
 {
     if(window.ActiveXObject)
@@ -29,11 +35,12 @@ var menuLength = 0;
 var linkLength = 0;
 //父节点ID，本身ID，权限名称，权限描述，权限路径，权限图片
 function send_request(url,SystemBh) 
-{ 
-    http_request = false; 
+{
+	/** @type {XMLHttpRequest} */
+    var http_request = false;
     if( window.XMLHttpRequest ) 
-    { 
-        http_request = new XMLHttpRequest(); 
+    {
+        http_request = new XMLHttpRequest();
         if (http_request.overrideMimeType)
        { 
 	    http_request.overrideMimeType("text/xml"); 
@@ -69,15 +76,14 @@ function send_request(url,SystemBh)
 
 		http_request.send(null); 
 		
+		/** @type {Document} */
 		var tmpxml = http_request.responseXML;
 		
 		//加载顶层菜单开始
-		//window.alert(http_request.responseText);
 		var topXml = SelectNodes(tmpxml, "/Menus/topMenus/Menu");//tmpxml.selectNodes("/Menus/topMenus/Menu");
-    //window.alert(topXml.length);
+
 		for(i=0;i<topXml.length;i++)
 		{
-		    //window.alert(i);
 			topMenuItems[topMenuLength] = new Array();
 			topMenuItems[topMenuLength][0] = topXml[i].attributes.getNamedItem("parentid").value;
 			topMenuItems[topMenuLength][1] = SystemBh + "_" + topXml[i].attributes.getNamedItem("id").value;
@@ -88,7 +94,7 @@ function send_request(url,SystemBh)
 			topMenuItems[topMenuLength][6] = topXml[i].attributes.getNamedItem("defaultPage").value;
 			topMenuLength++;
 		}
-		
+
 		//加载顶层菜单结束
 		
 		//加载一层菜单开始
